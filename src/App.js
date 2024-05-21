@@ -1,23 +1,104 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Header />
+      <div className="content">
+        <h1>All sneakers</h1>
+
+        <div className="cards">
+          <div className="card">
+            <img src="/img/sneakers/nike_blazer_mid_suede.png" alt="Sneaker" />
+            <h5 className="card__title">
+              Men's Nike Blazer Mid Suede Sneakers
+            </h5>
+
+            <div className="card__info">
+              <div>
+                <span>Price:</span>
+                <b>85$</b>
+              </div>
+
+              <button className="card__btn">
+                <img src="/img/icon-plus.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <div className="card">
+            <img src="/img/sneakers/nike_blazer_mid_suede.png" alt="Sneaker" />
+            <h5 className="card__title">
+              Men's Nike Blazer Mid Suede Sneakers
+            </h5>
+
+            <div className="card__info">
+              <div>
+                <span>Price:</span>
+                <b>85$</b>
+              </div>
+
+              <button className="card__btn">
+                <img src="/img/icon-plus.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <div className="card">
+            <img src="/img/sneakers/nike_blazer_mid_suede.png" alt="Sneaker" />
+            <h5 className="card__title">
+              Men's Nike Blazer Mid Suede Sneakers
+            </h5>
+
+            <div className="card__info">
+              <div>
+                <span>Price:</span>
+                <b>85$</b>
+              </div>
+
+              <button className="card__btn">
+                <img src="/img/icon-plus.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <div className="card">
+            <img src="/img/sneakers/nike_blazer_mid_suede.png" alt="Sneaker" />
+            <h5 className="card__title">
+              Men's Nike Blazer Mid Suede Sneakers
+            </h5>
+
+            <div className="card__info">
+              <div>
+                <span>Price:</span>
+                <b>85$</b>
+              </div>
+
+              <button className="card__btn">
+                <img src="/img/icon-plus.svg" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <div className="card">
+            <img src="/img/sneakers/nike_blazer_mid_suede.png" alt="Sneaker" />
+            <h5 className="card__title">
+              Men's Nike Blazer Mid Suede Sneakers
+            </h5>
+
+            <div className="card__info">
+              <div>
+                <span>Price:</span>
+                <b>85$</b>
+              </div>
+
+              <button className="card__btn">
+                <img src="/img/icon-plus.svg" alt="" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
