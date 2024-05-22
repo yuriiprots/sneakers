@@ -1,7 +1,9 @@
-import React from "react";
-import "./Header.scss";
+import "../styles/Header.scss";
 
-function Header() {
+function Header(props) {
+
+  
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -13,7 +15,7 @@ function Header() {
       </div>
 
       <ul className="header__list">
-        <li>
+        <li onClick={props.onClickCart}>
           <img src="/icon-cart.svg" alt="Cart" className="header__icon" />
           <span>1205$</span>
         </li>

@@ -1,78 +1,48 @@
-import Header from "./Header";
+import Header from "./components/Header";
+import Card from "./components/Card";
+import Cart from "./components/Cart";
+import { useState } from "react";
 
 function App() {
+  const cards = [
+    {
+      id: 1,
+      title: "Men's Nike Blazer Mid Suede Sneakers",
+      price: 130,
+      imgExtension: "jpg",
+    },
+    {
+      id: 2,
+      title: "Men's Nike Air Max 270 Sneakers",
+      price: 130,
+      imgExtension: "jpg",
+    },
+    {
+      id: 3,
+      title: "Men's Nike Blazer Mid Suede Sneakers",
+      price: 85,
+      imgExtension: "png",
+    },
+    {
+      id: 4,
+      title: "Puma X Aka Boku Future Rider Sneakers",
+      price: 90,
+      imgExtension: "jpg",
+    },
+    {
+      id: 5,
+      title: "Men's Under Armour Curry 8 Sneakers",
+      price: 151,
+      imgExtension: "jpg",
+    },
+  ];
+
+  const [cartOpened, setCartOpened] = useState(false);
+
   return (
     <div className="wrapper">
-      <div className="overlay">
-        <div className="drawer">
-          <h2 className="drawer__title">
-            Cart{" "}
-            <img className="removeBtn" src="/img/icon-remove.svg" alt="Close" />
-          </h2>
-
-          <div className="cartItems">
-            <div className="cartItem">
-              <div
-                style={{
-                  backgroundImage: 'url("/img/sneakers/sneakers_1.jpg")',
-                }}
-                className="cartItem__img"
-              ></div>
-
-              <div className="cartItem__info">
-                <p>Men's Nike Blazer Mid Suede Sneakers</p>
-                <b>85$</b>
-              </div>
-
-              <img
-                className="removeBtn"
-                src="/img/icon-remove.svg"
-                alt="Remove"
-              />
-            </div>
-
-            <div className="cartItem">
-              <div
-                style={{
-                  backgroundImage: 'url("/img/sneakers/sneakers_2.jpg")',
-                }}
-                className="cartItem__img"
-              ></div>
-
-              <div className="cartItem__info">
-                <p>Men's Nike Blazer Mid Suede Sneakers</p>
-                <b>85$</b>
-              </div>
-
-              <img
-                className="removeBtn"
-                src="/img/icon-remove.svg"
-                alt="Remove"
-              />
-            </div>
-          </div>
-
-          <div className="cartTotalBlock">
-            <ul>
-              <li>
-                <span className="total">Total:</span>
-                <div></div>
-                <b>170$</b>
-              </li>
-              <li>
-                <span>The tax is 5%:</span>
-                <div></div>
-                <b>2.90$</b>
-              </li>
-            </ul>
-            <button className="greenBtn">
-              Make an order <img src="/img/icon-arrow.svg" alt="Arrow"></img>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <Header />
+      {cartOpened && <Cart onClickClose={() => setCartOpened(false)} />}
+      <Header onClickCart={() => setCartOpened(true)} />
       <div className="content">
         <div className="content__header">
           <h1>All sneakers</h1>
@@ -83,234 +53,15 @@ function App() {
         </div>
 
         <div className="cards">
-          <div className="card">
-            <div className="card__btn favorite">
-              <img src="/img/icon-bookmark--checked.svg" alt="" />
-            </div>
-
-            <img src="/img/sneakers/sneakers_1.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <div className="card__btn">
-                <img src="/img/icon-addToCart--unchecked.svg" alt="" />
-              </div>
-            </div>
-          </div>
-
-          <div className="card">
-            <button className="card__btn bookmark">
-              <img
-                src="/img/icon-bookmark--unchecked.svg"
-                className="addToBookmark"
-                alt=""
-              />
-            </button>
-            <img src="/img/sneakers/sneakers_2.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img
-                  src="/img/icon-addToCart--checked.svg"
-                  alt=""
-                  className="addToCart"
-                />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_3.png" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_4.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_5.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_6.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_7.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_8.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-          <div className="card">
-            <img src="/img/sneakers/sneakers_9.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-          <div className="card">
-            <img src="/img/sneakers/sneakers_1.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_11.png" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div className="card">
-            <img src="/img/sneakers/sneakers_12.jpg" alt="Sneaker" />
-            <h5 className="card__title">
-              Men's Nike Blazer Mid Suede Sneakers
-            </h5>
-
-            <div className="card__info">
-              <div>
-                <span>Price:</span>
-                <b>85$</b>
-              </div>
-
-              <button className="card__btn">
-                <img src="/img/icon-plus.svg" alt="" />
-              </button>
-            </div>
-          </div>
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              id={card.id}
+              title={card.title}
+              price={card.price}
+              imgExtension={card.imgExtension}
+            />
+          ))}
         </div>
       </div>
     </div>
