@@ -1,18 +1,19 @@
 import "../styles/Header.scss";
+import { Link } from "react-router-dom";
 
 function Header(props) {
-
-  
-
   return (
     <header className="header">
-      <div className="header__logo">
-        <img src="img/logo.png" alt="Logo" />
-        <div className="header__text">
-          <h3>SNEAKERS</h3>
-          <p>The best sneaker shop</p>
+      <Link to="/">
+        <div className="header__logo">
+          <img src="img/logo.png" alt="Logo" />
+
+          <div className="header__text">
+            <h3>SNEAKERS</h3>
+            <p>The best sneaker shop</p>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <ul className="header__list">
         <li onClick={props.onClickCart}>
@@ -20,15 +21,17 @@ function Header(props) {
           <span>1205$</span>
         </li>
 
-        <li>
-          <img
-            src="/icon-bookmark.svg"
-            alt="Bookmark"
-            className="header__icon"
-          />
-          <span>Bookmarks</span>
-        </li>
-
+        <Link to="/favorites">
+          <li>
+            <img
+              src="/icon-bookmark.svg"
+              alt="Favorites"
+              className="header__icon"
+            />
+            <span>Favorites</span>
+          </li>
+        </Link>
+        
         <li>
           <img src="/icon-profile.svg" alt="Profile" className="header__icon" />
           <span>Profile</span>

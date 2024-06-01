@@ -1,69 +1,112 @@
 import Header from "./components/Header";
-import Card from "./components/Card";
 import Cart from "./components/Cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
-  const cards = [
-    {
-      id: 1,
-      title: "Men's Nike Blazer Mid Suede Sneakers",
-      price: 130,
-      imgExtension: "jpg",
-    },
-    {
-      id: 2,
-      title: "Men's Nike Air Max 270 Sneakers",
-      price: 130,
-      imgExtension: "jpg",
-    },
-    {
-      id: 3,
-      title: "Men's Nike Blazer Mid Suede Sneakers",
-      price: 85,
-      imgExtension: "png",
-    },
-    {
-      id: 4,
-      title: "Puma X Aka Boku Future Rider Sneakers",
-      price: 90,
-      imgExtension: "jpg",
-    },
-    {
-      id: 5,
-      title: "Men's Under Armour Curry 8 Sneakers",
-      price: 151,
-      imgExtension: "jpg",
-    },
-  ];
-
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [cartOpened, setCartOpened] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [favoriteItems, setFavoriteItems] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://664edb69fafad45dfae1496f.mockapi.io/items")
+      .then((response) => {
+        setItems(response.data);
+      });
+
+    axios
+      .get("https://664edb69fafad45dfae1496f.mockapi.io/cart")
+      .then((response) => {
+        setCartItems(response.data);
+      });
+
+    axios
+      .get("https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite")
+      .then((response) => {
+        setFavoriteItems(response.data);
+        console.log(response.data);
+      });
+  }, []);
+
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const onAddToCart = (obj) => {
+    if (
+      !cartItems.find(
+        (item) => item.title === obj.title && item.price === obj.price
+      ) &&
+      obj.isAdded === false
+    ) {
+      axios
+        .post(`https://664edb69fafad45dfae1496f.mockapi.io/cart/`, obj)
+        .then((response) => setCartItems((prev) => [...prev, response.data]));
+    }
+  };
+
+  const onAddToFavorite = (obj) => {
+    if (
+      !favoriteItems.find(
+        (item) => item.title === obj.title && item.price === obj.price
+      ) &&
+      obj.isFavorite === false
+    )
+      axios
+        .post(`https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite/`, obj)
+        .then((response) =>
+          setFavoriteItems((prev) => [...prev, response.data])
+        );
+  };
+
+  const onRemoveToCart = (id) => {
+    axios.delete(`https://664edb69fafad45dfae1496f.mockapi.io/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const onRemoveToFavorite = (id) => {
+    axios.delete(`https://664edb69fafad45dfae1496f.mockapi.io/favorite/${id}`);
+    setFavoriteItems((prev) => prev.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="wrapper">
-      {cartOpened && <Cart onClickClose={() => setCartOpened(false)} />}
-      <Header onClickCart={() => setCartOpened(true)} />
-      <div className="content">
-        <div className="content__header">
-          <h1>All sneakers</h1>
-          <div className="input__wrapper">
-            <img src="/img/icon-search.svg" alt="Search" />
-            <input type="text" placeholder="Search..." />
-          </div>
-        </div>
+      {cartOpened && (
+        <Cart
+          cartItems={cartItems}
+          onClickClose={() => setCartOpened(false)}
+          onClickRemove={onRemoveToCart}
+        />
+      )}
 
-        <div className="cards">
-          {cards.map((card) => (
-            <Card
-              key={card.id}
-              id={card.id}
-              title={card.title}
-              price={card.price}
-              imgExtension={card.imgExtension}
+      <Header onClickCart={() => setCartOpened(true)} />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              items={items}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToCart={onAddToCart}
+              onAddToFavorite={onAddToFavorite}
+              cartItems={cartItems}
             />
-          ))}
-        </div>
-      </div>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={<Favorites favoriteItems={favoriteItems} />}
+        />
+      </Routes>
     </div>
   );
 }

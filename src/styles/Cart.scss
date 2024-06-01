@@ -28,89 +28,84 @@
       cursor: pointer;
     }
   }
+}
 
-  .cartItems {
-    flex: 1;
-    overflow: auto;
-    margin-bottom: 40px;
-  }
+.cart__empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
 
-  .cartItem {
-    border: 1px solid #f3f3f3;
-    border-radius: 20px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+  &__empty-img {
     margin-bottom: 20px;
+    width: 120px;
+    height: 120px;
+  }
+  p {
+    width: 280px;
+    line-height: 24px;
+    opacity: 0.6;
+  }
 
-    &__img {
-      height: 70px;
-      width: 70px;
-      background-size: contain;
-      background-position: 0 -3px;
-      background-repeat: no-repeat;
-      margin-right: 20px;
+  .greenBtn {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: translateX(-5px);
+      }
     }
 
-    &__info {
-      flex: 1;
+    img {
+      left: 30px;
+      top: 20px;
     }
-    p {
-      font-size: 16px;
-      margin: 0;
-    }
+  }
+}
 
-    b {
-      font-size: 14px;
-    }
+.cartItems {
+  flex: 1;
+  overflow: auto;
+  margin-bottom: 40px;
+}
 
-    .removeBtn {
-      opacity: 0.5;
-      cursor: pointer;
-      transition: opacity 0.15s ease-in-out;
+.cartTotalBlock {
+  ul {
+    margin-bottom: 40px !important;
 
-      &:hover {
-        opacity: 1;
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 10px;
+
+      div {
+        flex: 1;
+        height: 1px;
+        border-bottom: 1px dashed #dfdfdf;
+        position: relative;
+        top: -4px;
+        margin: 0 7px;
       }
     }
   }
+}
 
-  .cartTotalBlock {
-    ul {
-      margin-bottom: 40px !important;
+.greenBtn {
+  position: relative;
 
-      li {
-        display: flex;
-        align-items: flex-end;
-        margin-bottom: 10px;
-
-        div {
-          flex: 1;
-          height: 1px;
-          border-bottom: 1px dashed #dfdfdf;
-          position: relative;
-          top: -4px;
-          margin: 0 7px;
-        }
-      }
+  &:hover {
+    img {
+      transform: translateX(5px);
     }
+  }
 
-    .greenBtn {
-      position: relative;
-
-      &:hover {
-        img {
-          transform: translateX(5px);
-        }
-      }
-
-      img {
-        position: absolute;
-        right: 30px;
-        top: 20px;
-        transition: transform 0.2s ease-in-out;
-      }
-    }
+  img {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    transition: transform 0.2s ease-in-out;
   }
 }
