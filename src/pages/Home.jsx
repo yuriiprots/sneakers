@@ -45,12 +45,10 @@ export default function Home({
             .map((card) => (
               <Card
                 key={card.id}
-                title={card.title}
-                price={card.price}
-                imgUrl={card.imgUrl}
                 onPlus={(obj) => onAddToCart(obj)}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 cartItems={cartItems}
+                {...card}
               />
             ))}
         </div>

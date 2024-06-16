@@ -34,6 +34,10 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    console.log(favoriteItems);
+  }, [favoriteItems]);
+
   const onChangeSearchInput = (event) => {
     setSearchValue(event.target.value);
   };
@@ -51,18 +55,36 @@ function App() {
     }
   };
 
-  const onAddToFavorite = (obj) => {
-    if (
-      !favoriteItems.find(
-        (item) => item.title === obj.title && item.price === obj.price
-      ) &&
-      obj.isFavorite === false
-    )
-      axios
-        .post(`https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite/`, obj)
-        .then((response) =>
-          setFavoriteItems((prev) => [...prev, response.data])
+  const onAddToFavorite = async (obj) => {
+    try {
+      if (favoriteItems.find((item) => item.id === obj.id)) {
+        axios.delete(
+          `https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite/${obj.id}`
         );
+        // setFavoriteItems((prev) => prev.filter((item) => item.id !== obj.id));
+      } else {
+        const { data } = await axios.post(
+          "https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite",
+          obj
+        );
+
+        setFavoriteItems((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert("Не вдалось добавити до улюблених");
+    }
+
+    // if (
+    //   !favoriteItems.find(
+    //     (item) => item.title === obj.title && item.price === obj.price
+    //   ) &&
+    //   obj.isFavorite === false
+    // )
+    //   axios
+    //     .post("https://66534bb4813d78e6d6d7ddbc.mockapi.io/favorite", obj)
+    //     .then((response) =>
+    //       setFavoriteItems((prev) => [...prev, response.data])
+    //     );
   };
 
   const onRemoveToCart = (id) => {
@@ -104,7 +126,13 @@ function App() {
         />
         <Route
           path="/favorites"
-          element={<Favorites favoriteItems={favoriteItems} />}
+          element={
+            <Favorites
+              favoriteItems={favoriteItems}
+              onAddToFavorite={onAddToFavorite}
+              cartItems={cartItems}
+            />
+          }
         />
       </Routes>
     </div>
