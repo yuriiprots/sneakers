@@ -1,14 +1,32 @@
+import React from "react";
 import Card from "../components/Card/Card";
-
+import AppContext from "../context";
 export default function Home({
   items,
+  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
   onAddToCart,
   onAddToFavorite,
-  cartItems,
+  isLoading,
 }) {
+  const { isItemAdded } = React.useContext(AppContext);
+  const renderItems = () => {
+    const filteredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    return (isLoading ? [...Array(8)] : filteredItems).map((card, index) => (
+      <Card
+        key={index}
+        onPlus={(obj) => onAddToCart(obj)}
+        onFavorite={(obj) => onAddToFavorite(obj)}
+        cartItems={cartItems}
+        loading={isLoading}
+        {...card}
+      />
+    ));
+  };
   return (
     <div className="wrapper">
       <div className="content">
@@ -37,8 +55,13 @@ export default function Home({
           </div>
         </div>
 
-        <div className="items">
-          {items
+        <div className="items">{renderItems()}</div>
+      </div>
+    </div>
+  );
+}
+
+/*items
             .filter((item) =>
               item.title.toLowerCase().includes(searchValue.toLowerCase())
             )
@@ -48,11 +71,9 @@ export default function Home({
                 onPlus={(obj) => onAddToCart(obj)}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 cartItems={cartItems}
+                added={cartItems.some(
+                  (obj) => Number(obj.id) === Number(card.id)
+                )}
                 {...card}
               />
-            ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+            ))*/

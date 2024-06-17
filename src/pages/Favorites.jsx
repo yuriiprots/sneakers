@@ -1,11 +1,11 @@
 import React from "react";
-
-import Header from "../components/Header";
+import AppContext from "../context";
 import Card from "../components/Card/Card";
 import "../index.scss";
 
-function Favorites({ favoriteItems, onAddToFavorite, cartItems }) {
-  console.log(favoriteItems);
+function Favorites() {
+  const { favoriteItems, onAddToFavorite, cartItems } = React.useContext(AppContext);
+
   return (
     <div className="wrapper">
       <div className="content">
